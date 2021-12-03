@@ -23,10 +23,9 @@ def part_one():
     gamma_str = "".join(["0" if tup[0] > tup[1] else "1" for tup in zip(bit_positions_on, bit_positions_off)])
     alpha_str = "".join(["1" if tup[0] > tup[1] else "0" for tup in zip(bit_positions_on, bit_positions_off)])
 
-    print("gamma: " + gamma_str)
-    print("alpha: " + alpha_str)
-
-    print("Total:" + str(int(gamma_str, 2) * int(alpha_str, 2)))
+    print(f"gamma: {gamma_str}")
+    print(f"alpha: {alpha_str}")
+    print(f"Total: {int(gamma_str, 2) * int(alpha_str, 2)}")
 
 
 def part_two():
