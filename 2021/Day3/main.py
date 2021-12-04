@@ -32,7 +32,65 @@ def part_two():
     abs_file_path = os.path.join(os.path.dirname(__file__), "input")
     question_input = read_input_as_string(abs_file_path)
 
+    scrubber_rating = get_scrubber_rating(question_input)
+    oxygen_rating = get_oxygen_rating(question_input)
+    
+    print(f"Life support rating: {oxygen_rating * scrubber_rating}")
+
+
+def get_oxygen_rating(question_input):
+    bit_off = []
+    bit_on = []
+
+    current_list = question_input
+
+    for current_bit_pos in range(0, len(question_input[0])):
+        if len(current_list) <= 1:
+            break
+
+        for line in current_list:
+            current_bit = line[current_bit_pos]
+
+            match current_bit:
+                case "0":
+                    bit_off.append(line)
+                case "1":
+                    bit_on.append(line)
+
+        current_list = bit_on if len(bit_off) <= len(bit_on) else bit_off
+        bit_off = []
+        bit_on = []
+
+    return int(current_list.pop(), 2)
+
+
+def get_scrubber_rating(question_input):
+    bit_off = []
+    bit_on = []
+
+    current_list = question_input
+
+    for current_bit_pos in range(0, len(question_input[0])):
+        if len(current_list) <= 1:
+            break
+
+        for i in range(0, len(current_list)):
+            line = current_list[i]
+            current_bit = line[current_bit_pos]
+
+            match current_bit:
+                case "0":
+                    bit_off.append(line)
+                case "1":
+                    bit_on.append(line)
+
+        current_list = bit_off if len(bit_on) >= len(bit_off) else bit_on
+        bit_off = []
+        bit_on = []
+
+    return int(current_list.pop(), 2)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    part_one()
+    part_two()
