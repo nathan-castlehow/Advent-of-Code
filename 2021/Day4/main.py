@@ -71,16 +71,18 @@ def part_two():
         boards = [BingoBoard(board) for board in boards_by_line]
 
         i = 0
-        while len(boards) > 1 and i < len(moves):
+        completed_boards = []
+        while i < len(moves) and any(boards):
             current_move = moves[i]
             for board in boards:
                 board.play(current_move)
-
-            boards = list(filter(lambda x: x.is_complete(), boards))
+                if board.is_complete():
+                    completed_boards.append(board)
+            boards = list(filter(lambda x: not x.is_complete(), boards))
             i += 1
 
-        print(boards)
-        print(boards.pop().sum_remaining_places() * current_move)
+        print(f"Score: {completed_boards.pop().sum_remaining_places() * current_move})
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
