@@ -10,7 +10,6 @@ class BingoBoard:
     """
     def __deserialize_board(self, board_by_line):
         self._board = [[int(number.strip()) for number in line.split()] for line in board_by_line]
-        print(self._board)
 
     def play(self, move):
         for i in range(0, len(self._board)):
@@ -20,7 +19,17 @@ class BingoBoard:
                     row[j] = None
 
     def is_complete(self):
-        pass
+
+        for row in self._board:
+            if all(map(lambda x: x is None, row)):
+                return True
+
+        for j in range(0, len(self._board[0])):
+            col = [self._board[i][j] for i in range(0, len(self._board))]
+            if all(map(lambda x: x is None, col)):
+                return True
+
+        return False
 
     def sum_remaining_places(self):
         return sum([sum(filter(None,row)) for row in self._board])
