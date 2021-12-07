@@ -1,4 +1,3 @@
-import string
 import os
 from BingoBoard import BingoBoard
 
@@ -81,7 +80,7 @@ def part_two():
             boards = list(filter(lambda x: not x.is_complete(), boards))
             i += 1
 
-        print(f"Score: {completed_boards.pop().sum_remaining_places() * current_move})
+        print(f"Score: {completed_boards.pop().sum_remaining_places() * current_move}")
 
 
 # Press the green button in the gutter to run the script.
